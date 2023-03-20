@@ -1,5 +1,6 @@
 import React from 'react';
 import JobTag from "./JobTag";
+import { fetchFromDB } from '../../../lib/operations';
 
 type CardType = {
     companyName: string
@@ -9,7 +10,7 @@ type CardType = {
     tags: Array<string>
 }
 
-const cards: Array<CardType> = [
+/* const cards: Array<CardType> = [
     {
         companyName: "Google",
         companyIcon: "google.png",
@@ -31,9 +32,18 @@ const cards: Array<CardType> = [
         desc: "In this position you will be working with a senior FS developer",
         tags: ["Javascript", "React", "Firebase", "Chakra UI"],
     },
-]
+] */
 
 const JobCard = () => {
+
+    console.log(fetchFromDB())
+
+    const cards: any  = fetchFromDB().then((listings: Array<any>) => {
+        console.log(typeof(listings[0].companyName))
+        return listings
+    })
+
+    console.log("cards", cards)
 
 
     return (
