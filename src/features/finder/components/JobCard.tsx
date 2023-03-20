@@ -1,18 +1,23 @@
-import React from 'react';
 import JobTag from "./JobTag";
 
 type CardType = {
     companyName: string
     companyIcon: string
+    location: string
     title: string
+    date: string
     desc: string
     tags: Array<string>
 }
+
+
 
 const cards: Array<CardType> = [
     {
         companyName: "Google",
         companyIcon: "google.png",
+        location: "Stockholm",
+        date: "15/5/2023 - 15/5/2024",
         title: "Full Stack Developer",
         desc: "In this position you will be working with a senior FS developer",
         tags: ["Javascript", "React", "Firebase", "Chakra UI"],
@@ -20,6 +25,8 @@ const cards: Array<CardType> = [
     {
         companyName: "Google",
         companyIcon: "google.png",
+        location: "Stockholm",
+        date: "15/5/2023 - 15/5/2024",
         title: "Full Stack Developer",
         desc: "In this position you will be working with a senior FS developer",
         tags: ["Javascript", "React", "Firebase", "Chakra UI"],
@@ -27,6 +34,8 @@ const cards: Array<CardType> = [
     {
         companyName: "Google",
         companyIcon: "google.png",
+        location: "Stockholm",
+        date: "15/5/2023 - 15/5/2024",
         title: "Full Stack Developer",
         desc: "In this position you will be working with a senior FS developer",
         tags: ["Javascript", "React", "Firebase", "Chakra UI"],
@@ -57,8 +66,8 @@ const JobCard = () => {
                                     card.tags.map((tag) => {
                                         return (
                                             <JobTag
-                                            tag={tag}
-                                            key={card.tags.indexOf(tag)}
+                                                tag={tag}
+                                                key={card.tags.indexOf(tag)}
                                             />
                                         )
                                     })
