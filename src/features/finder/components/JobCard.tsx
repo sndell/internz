@@ -1,6 +1,11 @@
 import React from 'react';
 import JobTag from "./JobTag";
+import { useAppDispatch } from '../../../app/reduxHooks';
+import { loadJobs } from '../finderSlice';
 import { fetchFromDB } from '../../../lib/operations';
+import { useAppSelector } from '../../../app/reduxHooks';
+import { useEffect } from 'react';
+
 
 type CardType = {
     companyName: string
@@ -34,16 +39,30 @@ type CardType = {
     },
 ] */
 
+
 const JobCard = () => {
 
-    console.log(fetchFromDB())
+    const dispatch = useAppDispatch()
 
-    const cards: any  = fetchFromDB().then((listings: Array<any>) => {
+    const dbData = fetchFromDB
+
+    const cardsData = useAppSelector((state) => state.finder.jobs)
+
+    const cards = () => fetchFromDB().then((listings: Array<any>) => {
         console.log(typeof(listings[0].companyName))
+        console.log(listings)
         return listings
-    })
+        
+    }).then((listings) => dispatch(loadJobs(listings)))
 
-    console.log("cards", cards)
+    useEffect(() => {
+        cards()
+    }, [])
+    
+
+    /* const loadJobs = () => {
+        dispatch(loadJobs(cards))
+    } */
 
 
     return (
@@ -51,10 +70,10 @@ const JobCard = () => {
 
             {
                 /* Logo, Company name, Job name, Tags, Description */
-                cards.map((card: CardType) => {
+                cardsData.map((card: CardType) => {
 
                     return (
-                        <div key={cards.indexOf(card)} className='bg-white p-3 rounded-lg m-auto mb-[20px] drop-shadow-md'>
+                        <div key={cardsData.indexOf(card)} className='bg-white p-3 rounded-lg m-auto mb-[20px] drop-shadow-md'>
                             <div className="card-header flex">
                                 <img className='card-logo w-10' src={card.companyIcon} alt={card.companyName + " logo"} />
                                 {card.companyName}

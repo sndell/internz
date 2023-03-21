@@ -1,9 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { fetchFromDB } from "../../lib/operations";
+
 
 export interface FinderState {
   jobs: Array<any>;
 }
+
+    /* const cards: any  = fetchFromDB().then((listings: Array<any>) => {
+        console.log(typeof(listings[0].companyName))
+        return listings
+    }) */
+    
 
 const initialState: FinderState = {
   jobs: [],
