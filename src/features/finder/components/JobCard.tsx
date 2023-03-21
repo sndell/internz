@@ -1,19 +1,18 @@
-import React from 'react';
+import React from "react";
 import JobTag from "./JobTag";
-import { useAppDispatch } from '../../../app/reduxHooks';
-import { loadJobs } from '../finderSlice';
-import { fetchFromDB } from '../../../lib/operations';
-import { useAppSelector } from '../../../app/reduxHooks';
-import { useEffect } from 'react';
-
+import { useAppDispatch } from "../../../app/reduxHooks";
+import { loadJobs } from "../finderSlice";
+import { fetchFromDB } from "../../../lib/operations";
+import { useAppSelector } from "../../../app/reduxHooks";
+import { useEffect } from "react";
 
 type CardType = {
-    companyName: string
-    companyIcon: string
-    title: string
-    desc: string
-    tags: Array<string>
-}
+  companyName: string;
+  companyIcon: string;
+  title: string;
+  desc: string;
+  tags: Array<string>;
+};
 
 /* const cards: Array<CardType> = [
     {
@@ -39,70 +38,70 @@ type CardType = {
     },
 ] */
 
-
 const JobCard = () => {
+  const filterArray = useAppSelector((state) => {
+    return state.filter.filters
+      .flatMap((category) => [...category.items])
+      .filter((tag: { active: boolean }) => tag.active === true);
+    //   .reduce((acc, curItem) => acc + (curItem.active ? 1 : 0), 0);
+  });
 
-    const dispatch = useAppDispatch()
+  console.log(filterArray);
 
-    const cardsData = useAppSelector((state) => state.finder.jobs)
+  const dispatch = useAppDispatch();
 
-    const cards = () => fetchFromDB().then((listings: Array<any>) => {
-        console.log(typeof(listings[0].companyName))
-        console.log(listings)
-        return listings
-        
-    }).then((listings) => {
-        dispatch(loadJobs(listings))
-    })
+  const cardsData = useAppSelector((state) => state.finder.jobs);
 
-    useEffect(() => {
-        cards()
-    }, [cardsData])
-    
+  const cards = () =>
+    fetchFromDB(filterArray)
+      .then((listings: Array<any>) => {
+        console.log(listings);
+        return listings;
+      })
+      .then((listings) => {
+        dispatch(loadJobs(listings));
+      });
 
-    /* const loadJobs = () => {
+  /* useEffect(() => {
+    cards();
+  }, [filterArray]); */
+
+  /* const loadJobs = () => {
         dispatch(loadJobs(cards))
     } */
 
-
-
- ///////// Anpassa till ny databas namn /////////
-    return (
-        <div>
-
-            {
-                /* Logo, Company name, Job name, Tags, Description */
-                cardsData.map((card: CardType) => {
-
-                    return (
-                        <div key={cardsData.indexOf(card)} className='bg-white p-3 rounded-lg m-auto mb-[20px] drop-shadow-md'>
-                            <div className="card-header flex">
-                                <img className='card-logo w-10' src={card.companyIcon} alt={card.companyName + " logo"} />
-                                {card.companyName}
-                            </div>
-                            <div className="card-desc">
-                                {card.desc}
-                            </div>
-                            <ul className="card-tags flex">
-                                {
-                                    card.tags.map((tag) => {
-                                        return (
-                                            <JobTag
-                                            tag={tag}
-                                            key={card.tags.indexOf(tag)}
-                                            />
-                                        )
-                                    })
-                                }
-                            </ul>
-                        </div>
-                    )
-                })
-
-            }
-
-        </div>
-    );
+  ///////// Anpassa till ny databas namn /////////
+  return (
+    <div>
+        <button onClick={cards}>Loads cards🍆</button>
+      {
+        /* Logo, Company name, Job name, Tags, Description */
+        cardsData.map((card: CardType) => {
+          return (
+            <div
+              key={cardsData.indexOf(card)}
+              className="m-auto mb-[20px] rounded-lg bg-white p-3 drop-shadow-md"
+            >
+              <div className="card-header flex">
+                <img
+                  className="card-logo w-10"
+                  src={card.companyIcon}
+                  alt={card.companyName + " logo"}
+                />
+                {card.companyName}
+              </div>
+              <div className="card-desc">{card.desc}</div>
+              <ul className="card-tags flex">
+                {card.tags.map((tag) => {
+                  return <JobTag tag={tag} key={card.tags.indexOf(tag)} />;
+                })}
+              </ul>
+            </div>
+          );
+        })
+      }
+    </div>
+  );
 };
 
 export default JobCard;

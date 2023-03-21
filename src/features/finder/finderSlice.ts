@@ -19,8 +19,7 @@ export interface FinderState {
 const initialState: FinderState = {
   jobs: [],
 };
-const filterArray = useAppSelector((state) => state.filter.filters);
-// const dispatch = useAppDispatch();
+
 
 
 const finderSlice = createSlice({

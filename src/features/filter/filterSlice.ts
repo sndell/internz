@@ -14,8 +14,8 @@ const initialState: filterSlice = {
     {
       name: "category 1",
       items: [
-        { tag: "tagname1", amount: 123, active: true },
-        { tag: "tagname2", amount: 123, active: false },
+        { tag: "react", amount: 123, active: true },
+        { tag: "ChakraUI", amount: 123, active: false },
         { tag: "tagname3", amount: 123, active: false },
       ],
     },
