@@ -1,6 +1,9 @@
+
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { useAppSelector, useAppDispatch } from "../../app/reduxHooks";
 import { fetchFromDB } from "../../lib/operations";
+import { setFilter } from "../filter/filterSlice";
 
 
 export interface FinderState {
@@ -16,6 +19,9 @@ export interface FinderState {
 const initialState: FinderState = {
   jobs: [],
 };
+const filterArray = useAppSelector((state) => state.filter.filters);
+// const dispatch = useAppDispatch();
+
 
 const finderSlice = createSlice({
   name: "finder",
@@ -26,6 +32,8 @@ const finderSlice = createSlice({
     },
   },
 });
+
+// dispatch(setFilter(filterArray))
 
 export const { loadJobs } = finderSlice.actions;
 export default finderSlice.reducer;

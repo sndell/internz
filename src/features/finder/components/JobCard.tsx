@@ -44,8 +44,6 @@ const JobCard = () => {
 
     const dispatch = useAppDispatch()
 
-    const dbData = fetchFromDB
-
     const cardsData = useAppSelector((state) => state.finder.jobs)
 
     const cards = () => fetchFromDB().then((listings: Array<any>) => {
@@ -53,11 +51,13 @@ const JobCard = () => {
         console.log(listings)
         return listings
         
-    }).then((listings) => dispatch(loadJobs(listings)))
+    }).then((listings) => {
+        dispatch(loadJobs(listings))
+    })
 
     useEffect(() => {
         cards()
-    }, [])
+    }, [cardsData])
     
 
     /* const loadJobs = () => {
@@ -65,6 +65,8 @@ const JobCard = () => {
     } */
 
 
+
+ ///////// Anpassa till ny databas namn /////////
     return (
         <div>
 
