@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface filterSlice {
   filters: Array<any>;
-  searchTerm: Array<string>;
+  searchTerm: string;
   error: { isError: boolean; errorMessage: string };
 }
 
@@ -30,7 +30,7 @@ const initialState: filterSlice = {
       ],
     }, */
   ],
-  searchTerm: [],
+  searchTerm: "",
   error: { isError: false, errorMessage: "" },
 };
 
@@ -68,10 +68,10 @@ const filterSlice = createSlice({
       );
     },
     setSearchTerm: (state, action: PayloadAction<string>) => {
-      state.searchTerm = action.payload.trim().split(" ");
+      state.searchTerm = action.payload.trim();
     },
     RemoveSearchTerm: (state) => {
-      state.searchTerm = [];
+      state.searchTerm = "";
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error.errorMessage = action.payload;

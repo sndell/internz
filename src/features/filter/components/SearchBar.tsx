@@ -56,6 +56,7 @@ const SearchBar = ({ toggleActive }: Props) => {
           ></input>
           {removeButtonValue && (
             <button
+            title="Remove"
               type="button"
               className="absolute right-1 top-1"
               onClick={handleRemoveSearchTerm}

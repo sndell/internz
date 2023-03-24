@@ -6,7 +6,27 @@ export interface FinderState {
 }
 
 const initialState: FinderState = {
-  jobs: [],
+  jobs: [{
+    companyName: "Google",
+    companyIcon: "google.png",
+    title: "Full Stack Developer",
+    desc: "In this position you will be working with a senior FS developer",
+    tags: ["Javascript", "React", "Firebase", "Chakra UI"],
+},
+{
+    companyName: "Google",
+    companyIcon: "google.png",
+    title: "Full Stack Developer",
+    desc: "In this position you will be working with a senior FS developer",
+    tags: ["Javascript", "React", "Firebase", "Chakra UI"],
+},
+{
+    companyName: "Google",
+    companyIcon: "google.png",
+    title: "Full Stack Developer",
+    desc: "In this position you will be working with a senior FS developer",
+    tags: ["Javascript", "React", "Firebase", "Chakra UI"],
+},],
 };
 
 const finderSlice = createSlice({

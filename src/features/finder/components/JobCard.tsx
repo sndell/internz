@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import JobTag from "./JobTag";
 import { searchFullText } from "../../../lib/operations"
+import { useAppDispatch, useAppSelector } from '../../../app/reduxHooks';
+import { loadJobs } from '../finderSlice';
 
 type CardType = {
     companyName: string
@@ -10,45 +12,33 @@ type CardType = {
     tags: Array<string>
 }
 
-const cards: Array<CardType> = [
-    {
-        companyName: "Google",
-        companyIcon: "google.png",
-        title: "Full Stack Developer",
-        desc: "In this position you will be working with a senior FS developer",
-        tags: ["Javascript", "React", "Firebase", "Chakra UI"],
-    },
-    {
-        companyName: "Google",
-        companyIcon: "google.png",
-        title: "Full Stack Developer",
-        desc: "In this position you will be working with a senior FS developer",
-        tags: ["Javascript", "React", "Firebase", "Chakra UI"],
-    },
-    {
-        companyName: "Google",
-        companyIcon: "google.png",
-        title: "Full Stack Developer",
-        desc: "In this position you will be working with a senior FS developer",
-        tags: ["Javascript", "React", "Firebase", "Chakra UI"],
-    },
-]
-
-searchFullText("Hejsan")
 
 const JobCard = () => {
+    
+    const selectSearchTerm = useAppSelector(state => state.filter.searchTerm)
+    const selectJobs = useAppSelector(state => state.finder.jobs)
+    const dispatch = useAppDispatch()
+    useEffect(() => {
 
-
-
+        if (selectSearchTerm !== "") {
+            const searchResult = searchFullText(selectSearchTerm)
+            dispatch(loadJobs(searchResult))
+            
+        }
+    }, [selectSearchTerm])
+    
+    console.log(selectJobs);
+    
     return (
         <div>
 
             {
+                
                 /* Logo, Company name, Job name, Tags, Description */
-                cards.map((card: CardType) => {
+                selectJobs.map((card: CardType) => {
 
                     return (
-                        <div key={cards.indexOf(card)} className='bg-white p-3 rounded-lg m-auto mb-[20px] drop-shadow-md'>
+                        <div key={selectJobs.indexOf(card)} className='bg-white p-3 rounded-lg m-auto mb-[20px] drop-shadow-md'>
                             <div className="card-header flex">
                                 <img className='card-logo w-10' src={card.companyIcon} alt={card.companyName + " logo"} />
                                 {card.companyName}
