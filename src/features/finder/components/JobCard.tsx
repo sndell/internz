@@ -1,5 +1,6 @@
 import React from 'react';
 import JobTag from "./JobTag";
+import { searchFullText } from "../../../lib/operations"
 
 type CardType = {
     companyName: string
@@ -33,7 +34,10 @@ const cards: Array<CardType> = [
     },
 ]
 
+searchFullText("Hejsan")
+
 const JobCard = () => {
+
 
 
     return (
@@ -57,8 +61,8 @@ const JobCard = () => {
                                     card.tags.map((tag) => {
                                         return (
                                             <JobTag
-                                            tag={tag}
-                                            key={card.tags.indexOf(tag)}
+                                                tag={tag}
+                                                key={card.tags.indexOf(tag)}
                                             />
                                         )
                                     })
