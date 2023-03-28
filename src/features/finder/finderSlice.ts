@@ -75,6 +75,9 @@ const finderSlice = createSlice({
       //console.log("After change:", state.jobs);
       
     },
+    loadFilteredJobs: (state, action: PayloadAction<Array<CardType>>) => {
+      state.filteredJobs = action.payload
+    }
   },
   extraReducers: (builder: any) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -90,5 +93,5 @@ const finderSlice = createSlice({
 });
 
 //export const { useGetSearchQuery } = searchAPI
-export const {loadJobs} = finderSlice.actions
+export const {loadJobs, loadFilteredJobs} = finderSlice.actions
 export default finderSlice.reducer;
