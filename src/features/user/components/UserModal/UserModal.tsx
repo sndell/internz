@@ -1,4 +1,5 @@
 import { createPortal } from "react-dom";
+import { Link } from "react-router-dom";
 import { logout } from "../../api";
 
 type UserModalProps = {
@@ -12,10 +13,12 @@ const UserModal = ({ toggleActive }: UserModalProps) => {
         onMouseDown={(e) => e.preventDefault()}
         className="absolute right-0 top-14 z-10 grid place-items-center rounded-2xl bg-white"
       >
-        <div className=" p-3">
+        <div className="flex flex-col items-start p-3">
           <button onClick={logout} className="cursor-pointer">
             Logout
           </button>
+          <Link to="/profile">View profile</Link>
+          <Link to="/profile/edit">Edit user</Link>
         </div>
       </div>
       {createPortal(

@@ -31,3 +31,31 @@ type UserType = {
 };
 
 type AuthMode = "login" | "register" | "verify" | "company";
+
+type EditMode = "account" | "security" | "company";
+
+type EditStudentAccountFormInputs = {
+  photo: FileList | string;
+  name: string;
+  title: string;
+  phone: string;
+  location: string;
+  skills: string[];
+  introduction: string;
+  education: string;
+};
+
+type EditCompanyAccountFormInputs = {
+  photo: FileList | string;
+  name: string;
+  phone?: string;
+  introduction: string;
+};
+
+type EditCompanyFormInputs = {
+  logo: FileList | string;
+  name: string;
+  description: string;
+  url: string;
+  location: string;
+};
