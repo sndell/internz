@@ -7,7 +7,7 @@ export interface filterSlice {
   error: { isError: boolean; errorMessage: string };
 }
 
-type FilterItems = { tag: string; amount: number; active: boolean };
+type FilterItems = { tag: string; active: boolean };
 
 const initialState: filterSlice = {
   filters: [
@@ -40,11 +40,13 @@ const filterSlice = createSlice({
   reducers: {
     setAllFilters: (state, action: PayloadAction<any>) => {
       const filters = action.payload;
-      state.filters = filters.forEach(
+      console.log(filters);
+      
+      const newArray = filters.map(
         (category: { name: string; items: Array<FilterItems> }) =>
-          category.items.forEach((item) => (item.active = false))
+         new Object({name: category.name, items: category.items.map((item) =>  new Object({tag: item, active: false}))})
       );
-      state.filters = filters;
+      state.filters = newArray;
     },
     setFilter: (state, action: PayloadAction<any>) => {
       const curState =

@@ -7,6 +7,7 @@ import { loadBundle } from "firebase/firestore";
 
 export interface FinderState {
   jobs: Array<any>;
+  filteredJobs: Array<any>;
 }
 
 type CardType = {
@@ -32,7 +33,7 @@ export const getSearch = createAsyncThunk(
   'search/requestStatus',
   async (searchTerm: string) => {
     const response = await searchFullText(searchTerm)
-    console.log('getSearch: ', response)
+    //console.log('getSearch: ', response)
     return response?.map(item => item.item)
   }
 )
@@ -59,6 +60,7 @@ export const getSearch = createAsyncThunk(
   }, */
 const initialState: FinderState = {
   jobs: [],
+  filteredJobs: []
 };
 
 const finderSlice = createSlice({
@@ -66,19 +68,19 @@ const finderSlice = createSlice({
   initialState,
   reducers: {
     loadJobs: (state, action: PayloadAction<Array<CardType>>) => {
-      console.log('loadJobs', state.jobs)
-      console.log('loadJobs', action)
+      //console.log('loadJobs', state.jobs)
+      //console.log('loadJobs', action)
 
       state.jobs = action.payload;
-      console.log("After change:", state.jobs);
+      //console.log("After change:", state.jobs);
       
     },
   },
   extraReducers: (builder: any) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getSearch.fulfilled, (state: any, action: PayloadAction<Array<CardType>>) => {
-      console.log('builder:', action.payload)
-      console.log(action)
+      //console.log('builder:', action.payload)
+      //console.log(action)
       state.jobs = action.payload;
       
       // Add user to the state array

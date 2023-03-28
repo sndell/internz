@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import JobTag from "./JobTag";
 // import { searchFullText } from "../../../lib/operations"
 import { useAppDispatch, useAppSelector } from '../../../app/reduxHooks';
- import { getSearch } from '../finderSlice';
+import { getSearch } from '../finderSlice';
 import { fetchFromDB } from '../../../lib/operations';
 
 type CardType = {
@@ -36,32 +36,72 @@ type UserType = {
 
 
 const JobCard = () => {
-    
+
     const selectSearchTerm = useAppSelector(state => state.filter.searchTerm)
+
+
+    const selectFilter = useAppSelector(state => state.filter.filters)
+    const selectFilterObj: any = {}
+
+    const selectFilter2 = selectFilter.forEach((cat) => {
+        selectFilterObj[cat.name] = new Object({
+            name: cat.name.toLowerCase(),
+            items: cat.items.filter((item: any) => item.active).map((item: { tag: string }) => item.tag)
+        })
+    })
+
+
+
+
+
+
+    console.log("selectfilterobj", selectFilterObj);
+
     const selectJobs = useAppSelector(state => state.finder.jobs)
+    const selectFilteredJobs = useAppSelector(state => state.finder.filteredJobs)
+
+    
+
     const dispatch = useAppDispatch()
     useEffect(() => {
-        
+
         if (selectSearchTerm !== "") {
             // const {data, error, isLoading} = getSearch("hejsan")
             // const {data, error, isLoading} = useGetSearchQuery('asd')
 
             dispatch(getSearch(selectSearchTerm))
-            
-            
+
+
         } else {
             dispatch(getSearch(""))
         }
     }, [selectSearchTerm])
-    
+
+    useEffect(() => {
+
+
+        const filteredTags = selectJobs.filter((job) =>
+            job.tags.some((tag: any) => selectFilterObj.Tags.items.includes(tag)) && selectFilterObj.Cities.items.includes(job.city)
+        );
+/*         const filteredCities = filteredTags.filter((job) =>
+            job.city == selectFilterObj.Cities.items.includes(job.city)
+        ); */
+/*         const filteredCities = selectJobs.filter((job) =>
+  selectFilterObj.Cities.items.includes(job.city)
+); */
+
+        console.log("filtered tags", filteredTags)
+        // console.log("filtered cities", filteredCities)
+    }, [selectFilter])
+
     //dispatch(getSearch(""))
-    console.log(selectJobs);
-    
+    //console.log(selectJobs);
+
     return (
         <div>
-
+            {/* if filtered jobs */}
             {
-                
+
                 /* Logo, Company name, Job name, Tags, Description */
                 selectJobs.map((card: CardType) => {
 
@@ -73,6 +113,9 @@ const JobCard = () => {
                             </div>
                             <div className="card-desc">
                                 {card.description}
+                            </div>
+                            <div className="card-city">
+                                Based in: {card.city}
                             </div>
                             <ul className="card-tags flex">
                                 {
