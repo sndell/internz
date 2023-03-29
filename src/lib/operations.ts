@@ -44,3 +44,25 @@ export const fetchFromDB = async (array: Array<any>) => {
     return [];
   }
 };
+export const fetchFromNode = async (searchTerm: string) => {
+  try {
+    const fetchOptions = {
+      method: "POST",
+      headers: {
+        "query": searchTerm,
+        "accept": "*/*",
+        "Content-Type": "application/json",
+      },
+      mode: "same-origin",
+      body: JSON.stringify({ query: searchTerm }),
+    }
+    const url = "http://localhost:3001/jobs/search"
+    const response = await fetch(url, fetchOptions)
+    const data = await response.json()
+    console.log(data);
+    
+  } catch (error) {
+    console.error(error)
+  }
+}
+fetchFromNode("på")
