@@ -60,3 +60,13 @@ type EditCompanyFormInputs = {
   url?: string;
   description?: string;
 };
+
+type EmailFormInputs = {
+  email: string;
+};
+
+type SecurityFormInputs = {
+  current_password: string;
+  password: string;
+  password_confirm: string;
+};

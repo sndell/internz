@@ -1,11 +1,15 @@
 import { auth, db, storage } from "../../../lib/firebase";
 import {
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
   GoogleAuthProvider,
+  reauthenticateWithCredential,
   sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updatePassword,
+  verifyBeforeUpdateEmail,
 } from "firebase/auth";
 import {
   addDoc,
@@ -252,4 +256,39 @@ export const updateCompanyById = async (
   } catch (error) {
     throw error;
   }
+};
+
+export const updateUserPassword = async (
+  currentPassword: string,
+  newPassword: string
+): Promise<void> => {
+  try {
+    const { currentUser } = auth;
+    if (!currentUser?.email) throw new Error("Not signed in");
+
+    // Reauthenticate the user with their current password.
+    const credentials = EmailAuthProvider.credential(
+      currentUser.email,
+      currentPassword
+    );
+    await reauthenticateWithCredential(currentUser, credentials);
+
+    // Update the user's password.
+    await updatePassword(currentUser, newPassword);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserAuthProvider = async (): Promise<
+  "email" | "google" | null
+> => {
+  const user = auth.currentUser;
+  if (!user) return null;
+
+  const providers = user.providerData.map((p) => p.providerId);
+
+  if (providers.includes("google.com")) return "google";
+  else if (providers.includes("password")) return "email";
+  else return null;
 };

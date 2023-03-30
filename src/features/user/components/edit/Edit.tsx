@@ -5,17 +5,34 @@ import CompanyAccountForm from "./CompanyAccountForm";
 import StudentAccountForm from "./StudentAccountForm";
 import SecurityForm from "./SecurityForm";
 import CompanyForm from "./CompanyForm";
-import { getCompanyById } from "../../api";
+import { getCompanyById, getUserAuthProvider } from "../../api";
 
 const Edit = () => {
   const { user } = useAuthState();
   const [mode, setMode] = useState("account");
   const [company, setCompany] = useState<CompanyFormTypes | null>(null);
+  const [authProvider, setAuthProvider] = useState<"email" | "google" | null>(
+    null
+  );
+
+  const getAuthProvider = async () => {
+    const provider = await getUserAuthProvider();
+    console.log(provider);
+
+    setAuthProvider(provider);
+  };
+
+  useEffect(() => {
+    getAuthProvider();
+  }, [user]);
+
+  useEffect(() => {
+    console.log(authProvider);
+  }, [authProvider]);
 
   const handleCompany = async (companyId: string) => {
     try {
       const company = await getCompanyById(companyId);
-      console.log(company);
       setCompany(company);
     } catch (error) {
       console.error(error);
@@ -55,7 +72,7 @@ const Edit = () => {
           <StudentAccountForm user={user} />
         );
       case "security":
-        return <SecurityForm />;
+        return <SecurityForm user={user} />;
       case "company":
         return <CompanyForm user={user} company={company} />;
     }
@@ -96,21 +113,23 @@ const Edit = () => {
             )}
           </div>
         )}
-        <div className="relative">
-          <button
-            onClick={() => handleMode("security")}
-            className="relative z-10 rounded-xl p-2 text-primary"
-          >
-            Security
-          </button>
-          {mode === "security" && (
-            <motion.div
-              transition={{ type: "tween", duration: 0.15 }}
-              layoutId="edit-highlight"
-              className="absolute inset-0 rounded-xl bg-white"
-            />
-          )}
-        </div>
+        {authProvider === "email" && (
+          <div className="relative">
+            <button
+              onClick={() => handleMode("security")}
+              className="relative z-10 rounded-xl p-2 text-primary"
+            >
+              Security
+            </button>
+            {mode === "security" && (
+              <motion.div
+                transition={{ type: "tween", duration: 0.15 }}
+                layoutId="edit-highlight"
+                className="absolute inset-0 rounded-xl bg-white"
+              />
+            )}
+          </div>
+        )}
       </div>
       {getForm()}
     </div>

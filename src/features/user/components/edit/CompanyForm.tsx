@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import DateInput from "../../../../components/elements/form/DateInput";
 import PictureInput from "../../../../components/elements/form/PictureInput";
-import TagInput from "../../../../components/elements/form/TagInput";
 import TextAreaInput from "../../../../components/elements/form/TextAreaInput";
 import TextInput from "../../../../components/elements/form/TextInput";
-import { getCompanyById, updateCompanyById } from "../../api";
+import { updateCompanyById } from "../../api";
 
 interface CompanyAccountPops {
   user: UserType | null;
