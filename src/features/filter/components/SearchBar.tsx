@@ -56,7 +56,7 @@ const SearchBar = ({ toggleActive }: Props) => {
           ></input>
           {removeButtonValue && (
             <button
-              title="Remove"
+              title="Clear search"
               type="button"
               className="absolute right-1 top-1"
               onClick={handleRemoveSearchTerm}
@@ -65,11 +65,12 @@ const SearchBar = ({ toggleActive }: Props) => {
             </button>
           )}
         </div>
-        <button type="button" onClick={toggleActive}>
+        <button type="button" onClick={toggleActive} title='Toggle filters'>
           <BiFilter className="text-2xl" />
         </button>
       </div>
       <button
+        title='Search'
         type="submit"
         className="mt-4 h-9 w-[100%] rounded-xl bg-black text-white"
       >
