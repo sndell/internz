@@ -21,41 +21,42 @@ type LoginFormTypes = {
 
 type AccountType = "student" | "company";
 
-type UserType = {
+interface UserType extends EditStudentAccountFormInputs {
   company?: null | string;
   id: string;
   email: string;
   username: string;
   photo: null | string;
   type: AccountType;
-};
+}
 
 type AuthMode = "login" | "register" | "verify" | "company";
 
 type EditMode = "account" | "security" | "company";
 
 type EditStudentAccountFormInputs = {
-  photo: FileList | string;
-  name: string;
-  title: string;
-  phone: string;
-  location: string;
-  skills: string[];
-  introduction: string;
-  education: string;
+  photo?: FileList | string;
+  username?: string;
+  title?: string;
+  phone?: string;
+  location?: string;
+  skills?: string[];
+  introduction?: string;
+  education?: string;
+  start_date?: Date;
+  end_date?: Date;
 };
 
 type EditCompanyAccountFormInputs = {
-  photo: FileList | string;
-  name: string;
+  photo?: FileList | string;
+  username?: string;
   phone?: string;
-  introduction: string;
+  introduction?: string;
 };
 
 type EditCompanyFormInputs = {
-  logo: FileList | string;
-  name: string;
-  description: string;
-  url: string;
-  location: string;
+  logo?: FileList | string;
+  name?: string;
+  url?: string;
+  description?: string;
 };

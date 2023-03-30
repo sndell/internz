@@ -1,14 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuthState from "../../hooks/useAuthState";
 import { motion } from "framer-motion";
 import CompanyAccountForm from "./CompanyAccountForm";
 import StudentAccountForm from "./StudentAccountForm";
 import SecurityForm from "./SecurityForm";
 import CompanyForm from "./CompanyForm";
+import { getCompanyById } from "../../api";
 
 const Edit = () => {
   const { user } = useAuthState();
   const [mode, setMode] = useState("account");
+  const [company, setCompany] = useState<CompanyFormTypes | null>(null);
+
+  const handleCompany = async (companyId: string) => {
+    try {
+      const company = await getCompanyById(companyId);
+      console.log(company);
+      setCompany(company);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCompanyDataChanged = () => {
+    if (user?.company) handleCompany(user.company);
+  };
+
+  useEffect(() => {
+    if (user?.company) {
+      handleCompany(user.company);
+    }
+
+    window.addEventListener("company-data-changed", handleCompanyDataChanged);
+
+    return () => {
+      // Remove the event listener for 'company-data-changed' when the component is unmounted
+      window.removeEventListener(
+        "company-data-changed",
+        handleCompanyDataChanged
+      );
+    };
+  }, [user?.company]);
 
   const handleMode = (mode: string) => {
     setMode(mode);
@@ -18,19 +50,19 @@ const Edit = () => {
     switch (mode) {
       case "account":
         return user?.type === "company" ? (
-          <CompanyAccountForm />
+          <CompanyAccountForm user={user} />
         ) : (
           <StudentAccountForm user={user} />
         );
       case "security":
         return <SecurityForm />;
       case "company":
-        return <CompanyForm />;
+        return <CompanyForm user={user} company={company} />;
     }
   };
 
   return (
-    <div className="flex flex-col justify-center gap-4">
+    <div className="flex flex-col justify-center gap-3">
       <div className="flex justify-center gap-4">
         <div className="relative">
           <button

@@ -12,8 +12,11 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
+  query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid"; // import the uuid library
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -165,5 +168,88 @@ export const reloadCurrentUser = async (): Promise<void> => {
     await auth.currentUser.reload();
     const userDataChangedEvent = new CustomEvent("user-data-changed");
     window.dispatchEvent(userDataChangedEvent);
+  }
+};
+
+export const updateAccount = async (
+  userId: string,
+  formData: EditStudentAccountFormInputs | EditCompanyAccountFormInputs
+): Promise<void> => {
+  try {
+    // Get a reference to the Firestore document for the user.
+    const userDocRef = doc(db, "users", userId);
+
+    const userData = Object.entries(formData).reduce(
+      (acc: Record<string, any>, [key, value]) => {
+        if (value !== "" && value !== null && value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {}
+    ) as EditStudentAccountFormInputs;
+
+    if (userData.photo instanceof FileList && userData.photo.length > 0) {
+      const imageFile = userData.photo[0];
+      const imageUrl = await uploadImage(imageFile);
+      userData.photo = imageUrl;
+    } else {
+      delete userData.photo;
+    }
+
+    // Update the user document with the new data.
+    await updateDoc(userDocRef, userData);
+    await reloadCurrentUser();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getCompanyById = async (
+  companyId: string
+): Promise<CompanyFormTypes> => {
+  try {
+    const companyDocRef = doc(db, "companies", companyId);
+    const companySnapshot = await getDoc(companyDocRef);
+    if (!companySnapshot.exists()) {
+      throw new Error("Company not found");
+    }
+    const companyData = companySnapshot.data() as CompanyFormTypes;
+    return companyData;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateCompanyById = async (
+  companyId: string,
+  formData: EditCompanyFormInputs
+): Promise<void> => {
+  try {
+    // Get a reference to the Firestore document for the company.
+    const companyDocRef = doc(db, "companies", companyId);
+
+    const companyData = Object.entries(formData).reduce(
+      (acc: Record<string, any>, [key, value]) => {
+        if (value !== "" && value !== null && value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {}
+    ) as EditCompanyFormInputs;
+
+    if (companyData.logo instanceof FileList && companyData.logo.length > 0) {
+      const imageFile = companyData.logo[0];
+      const imageUrl = await uploadImage(imageFile);
+      companyData.logo = imageUrl;
+    } else {
+      delete companyData.logo;
+    }
+
+    // Update the company document with the new data.
+    await updateDoc(companyDocRef, companyData);
+  } catch (error) {
+    throw error;
   }
 };

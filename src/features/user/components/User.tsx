@@ -40,7 +40,7 @@ const User = () => {
                 `https://ui-avatars.com/api/?name=${user.username}&background=random`
               }
               alt="Profile picture"
-              className="mr-2 h-full rounded-xl"
+              className="mr-2 h-full w-10 rounded-xl "
             />
             <div className="pr-3 max-sm:hidden">{user.username}</div>
           </>
