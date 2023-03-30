@@ -65,12 +65,12 @@ export const createJob = async (newJob: NewFormTypes): Promise<void> => {
 
     // Update the cities and tags documents with the new job's city and tags, merging with existing data
     await Promise.all([
+      setDoc(citiesDocRef, { items: arrayUnion(newJob.city) }, { merge: true }),
       setDoc(
-        citiesDocRef,
-        { cities: arrayUnion(newJob.city) },
+        tagsDocRef,
+        { items: arrayUnion(...newJob.tags) },
         { merge: true }
       ),
-      setDoc(tagsDocRef, { tags: arrayUnion(...newJob.tags) }, { merge: true }),
     ]);
 
     // Create a new job data object with the company, user, and new job data

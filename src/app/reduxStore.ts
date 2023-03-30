@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import finderReducer from "../features/finder/finderSlice";
-import filterReducer from "../features/filter/filterSlice";
+import filterSlice from "../features/jobs/components/finder/filterSlice";
 
 const store = configureStore({
   reducer: {
-    finder: finderReducer,
-    filter: filterReducer,
+    filter: filterSlice,
   },
 });
 
