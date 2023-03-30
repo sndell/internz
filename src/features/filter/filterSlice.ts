@@ -41,10 +41,10 @@ const filterSlice = createSlice({
     setAllFilters: (state, action: PayloadAction<any>) => {
       const filters = action.payload;
       console.log(filters);
-      
+
       const newArray = filters.map(
         (category: { name: string; items: Array<FilterItems> }) =>
-         new Object({name: category.name, items: category.items.map((item) =>  new Object({tag: item, active: false}))})
+          new Object({ name: category.name, items: category.items.map((item) => new Object({ tag: item, active: false })) })
       );
       state.filters = newArray;
     },

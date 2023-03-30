@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import JobTag from "./JobTag";
-// import { searchFullText } from "../../../lib/operations"
 import { useAppDispatch, useAppSelector } from '../../../app/reduxHooks';
 import { getSearch, loadFilteredJobs } from '../finderSlice';
 import { fetchFromDB } from '../../../lib/operations';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 type CardType = {
     city: string
@@ -34,9 +34,12 @@ type UserType = {
     username: string
 }
 
-const selectFilterObj: any = {}
+const activeFilters: any = {}
+
 
 const JobCard = () => {
+
+    // Import Redux state variables
 
     const selectSearchTerm = useAppSelector(state => state.filter.searchTerm)
 
@@ -45,79 +48,69 @@ const JobCard = () => {
     const selectJobs = useAppSelector(state => state.finder.jobs)
     const selectFilteredJobs = useAppSelector(state => state.finder.filteredJobs)
 
+    // Import Redux dispatch function
+
     const dispatch = useAppDispatch()
-    useEffect(() => {
 
-        if (selectSearchTerm !== "") {
-            // const {data, error, isLoading} = getSearch("hejsan")
-            // const {data, error, isLoading} = useGetSearchQuery('asd')
+    // Function to filter jobs based on active filters
+    const handleFilterJobs = (jobs: Array<CardType>) => {
+        console.log(jobs);
 
-            dispatch(getSearch(selectSearchTerm))
-            //dispatch(loadFilteredJobs(selectJobs))
-
-            ////////// FIXA!!! /////////
-            console.log("check for tags or city", !selectFilterObj.hasOwnProperty('Tags') || !selectFilterObj.hasOwnProperty('Cities'))
-            if ( selectFilterObj.hasOwnProperty('Tags') || selectFilterObj.hasOwnProperty('Cities')) {
-                console.log("Filter gaming");
-                
-                dispatch(loadFilteredJobs(selectJobs))
-            }
-            
-            
-        } else {
-            dispatch(getSearch(""))
-            
-        }
-    }, [selectSearchTerm])
-    
-    useEffect(() => {
-
-
-        const selectFilter2 = selectFilter.forEach((cat) => {
-
-            selectFilterObj[cat.name] = new Object({
+        //Set active filters
+        selectFilter.forEach((cat) => {
+            activeFilters[cat.name] = new Object({
                 name: cat.name.toLowerCase(),
                 items: cat.items.filter((item: any) => item.active).map((item: { tag: string }) => item.tag)
             })
         })
-        console.log("selectfilterobj", selectFilterObj);
-        console.log('tags?', selectFilterObj.Tags)
-        const filteredCities = selectFilterObj.Cities?.items.length !== 0 ? selectJobs.filter((job) =>
-         selectFilterObj.Cities.items.includes(job.city)) : selectJobs
 
+        // filter by city => if there are active cities tags
+        const filteredCities = activeFilters.Cities?.items.length !== 0 ? jobs.filter((job) =>
+            activeFilters.Cities.items.includes(job.city)) : jobs
 
-         const filteredTags = filteredCities.filter((job) =>
-        
-         selectFilterObj.Tags.items.length !== 0 ? job.tags.some((tag: any) => selectFilterObj.Tags.items.includes(tag)): true
-
-
-/* 
-        const filteredTags = selectJobs.filter((job) =>
-        selectFilterObj.Cities.items.length !== 0 ? selectFilterObj.Cities.items.includes(job.city) : true &&
-            job.tags.some((tag: any) => selectFilterObj.Tags.items.includes(tag)) */
-            // selectFilterObj.Tags.items.length !== 0 ? job.tags.some((tag: any) => selectFilterObj.Tags.items.includes(tag)) : true
-
+        // filter by tags => if there are active tags tags
+        const filteredTags = filteredCities.filter((job) =>
+            activeFilters.Tags.items.length !== 0 ? job.tags.some((tag: any) => activeFilters.Tags.items.includes(tag)) : true
         );
 
         dispatch(loadFilteredJobs(filteredTags))
-        /*         const filteredCities = filteredTags.filter((job) =>
-                    job.city == selectFilterObj.Cities.items.includes(job.city)
-                ); */
-        /*         const filteredCities = selectJobs.filter((job) =>
-          selectFilterObj.Cities.items.includes(job.city)
-        ); */
+
         console.log("filtered tags", filteredTags)
         console.log("filtered jobs", selectFilteredJobs)
+    }
 
-        // console.log("filtered cities", filteredCities)
-    }, [selectFilter])
+    useEffect(() => {
 
-    //dispatch(getSearch(""))
-    //console.log(selectJobs);
+        // Check if a search term has been selected
+        if (selectSearchTerm !== "") {
+
+            // Dispatch the getSearch action with the selected search term, and handle the response with a Promise
+            dispatch(getSearch(selectSearchTerm)).then((response: PayloadAction<any>) => {
+
+                // Log the payload of the response to the console
+                console.log(response.payload);
+
+                // Call the handleFilterJobs function with the response payload as an argument
+                handleFilterJobs(response.payload)
+
+            })
+
+        } else {
+            // If no search term has been selected, dispatch the getSearch action with an empty string, and handle the response with a Promise
+            dispatch(getSearch("")).then((response: PayloadAction<any>) => {
+
+                // Dispatch the loadFilteredJobs action with the payload of the response
+                dispatch(loadFilteredJobs(response.payload))
+
+            })
+        }
+    }, [selectSearchTerm]);
+
+    // Filter jobs when filters are selected
+    useEffect(() => handleFilterJobs(selectJobs), [selectFilter])
 
     return (
         <div>
-            {/* if filtered jobs */}
             {
 
                 /* Logo, Company name, Job name, Tags, Description */

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query'
 import type { PayloadAction } from "@reduxjs/toolkit";
-import {searchFullText} from '../../lib/operations'
+import { searchFullText } from '../../lib/operations'
 import { useAppDispatch } from "../../app/reduxHooks";
 import { loadBundle } from "firebase/firestore";
 
@@ -11,11 +11,31 @@ export interface FinderState {
 }
 
 type CardType = {
-  companyName: string
-  companyIcon: string
-  title: string
-  desc: string
+  city: string
+  company: CompanyType
+  description: string
+  end_date: string
+  start_date: string
+  location: Array<string>
+  position: string
+  scope: Array<string>
   tags: Array<string>
+  user: UserType
+}
+type CompanyType = {
+  creator: string,
+  description: string,
+  logo: string,
+  name: string,
+  url: string,
+}
+type UserType = {
+  company: string
+  email: string
+  id: string
+  photo: string
+  type: string
+  username: string
 }
 /* 
 export const searchAPI = createApi({
@@ -73,9 +93,11 @@ const finderSlice = createSlice({
 
       state.jobs = action.payload;
       //console.log("After change:", state.jobs);
-      
+
     },
     loadFilteredJobs: (state, action: PayloadAction<Array<CardType>>) => {
+      console.log("filtered jobs slice:", action);
+
       state.filteredJobs = action.payload
     }
   },
@@ -85,7 +107,7 @@ const finderSlice = createSlice({
       //console.log('builder:', action.payload)
       //console.log(action)
       state.jobs = action.payload;
-      
+
       // Add user to the state array
       //state.entities.push(action.payload)
     })
@@ -93,5 +115,5 @@ const finderSlice = createSlice({
 });
 
 //export const { useGetSearchQuery } = searchAPI
-export const {loadJobs, loadFilteredJobs} = finderSlice.actions
+export const { loadJobs, loadFilteredJobs } = finderSlice.actions
 export default finderSlice.reducer;

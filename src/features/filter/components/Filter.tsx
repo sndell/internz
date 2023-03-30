@@ -14,10 +14,9 @@ const Filter = () => {
     (state) => state.filter.error.errorMessage
   );
   const selectNumberActiveFilters = useAppSelector((state) => {
-    // return state.filter.filters
-    //   .flatMap((category) => [...category.items])
-    //   .reduce((acc, curItem) => acc + (curItem.active ? 1 : 0), 0);
-    return 0
+    return state.filter.filters
+      .flatMap((category) => [...category.items])
+      .reduce((acc, curItem) => acc + (curItem.active ? 1 : 0), 0);
   });
   const dispatch = useAppDispatch();
 

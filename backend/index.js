@@ -44,9 +44,11 @@ app.post("/jobs/search/", async (req, res) => {
     let searchResponse
     if (req.headers.query === "") {
       console.log("Query: ", req.headers.query);
-      searchResponse = {search: state.data.map(card => new Object({
-        item: card
-      }))}
+      searchResponse = {
+        search: state.data.map(card => new Object({
+          item: card
+        }))
+      }
 
     } else {
       searchResponse = search(req.headers.query);

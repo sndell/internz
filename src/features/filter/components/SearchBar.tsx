@@ -48,7 +48,7 @@ const SearchBar = ({ toggleActive }: Props) => {
         <div className="relative flex w-full">
           <BiSearch className="mr-4 text-2xl" />
           <input
-            className="w-full"
+            className='w-full'
             type="search"
             placeholder="Search"
             ref={searchFieldRef}
@@ -56,7 +56,7 @@ const SearchBar = ({ toggleActive }: Props) => {
           ></input>
           {removeButtonValue && (
             <button
-            title="Remove"
+              title="Remove"
               type="button"
               className="absolute right-1 top-1"
               onClick={handleRemoveSearchTerm}
