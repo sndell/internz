@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUserWithCompanyById } from "../../api";
-import { FaGraduationCap, FaBriefcase, FaShare } from "react-icons/fa";
+import { FaGraduationCap, FaBriefcase, FaShare, FaPhone } from "react-icons/fa";
 import { BsCalendarDateFill } from "react-icons/bs";
+import { MdLocationPin, MdMail } from "react-icons/md";
 
 const Profile = () => {
   const { userId } = useParams();
@@ -41,7 +42,7 @@ const Profile = () => {
           Share profile
         </button>
       </div>
-      <div className="flex flex-col gap-3 rounded-xl bg-white p-3">
+      <div className="flex flex-col gap-3 rounded-xl bg-primary p-3">
         LIA Periods
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-3 rounded-xl bg-secondary py-2 px-3">
@@ -53,6 +54,33 @@ const Profile = () => {
             <BsCalendarDateFill />
             {profileData?.user.end_date?.toString()}
           </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 rounded-xl bg-primary p-3">
+        LIA Periods
+        <div>{profileData?.user.introduction}</div>
+      </div>
+      <div className="flex flex-col gap-3 rounded-xl bg-primary p-3">
+        Contact
+        <div className="flex items-center gap-3">
+          <FaPhone />
+          {profileData?.user.phone}
+        </div>
+        <div className="flex items-center gap-3">
+          <MdLocationPin />
+          {profileData?.user.location}
+        </div>
+        <div className="flex items-center gap-3">
+          <MdMail />
+          {profileData?.user.email}
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 rounded-xl bg-primary p-3">
+        Skills
+        <div className="flex gap-3">
+          {profileData?.user.skills?.map((skill) => (
+            <div className="rounded-xl bg-secondary py-2 px-3">{skill}</div>
+          ))}
         </div>
       </div>
     </div>
