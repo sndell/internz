@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
-import { updateFilter } from "../finder/filterSlice";
+import { updateFilter } from "../../slices/filterSlice";
 
 interface FilterDateProps {
   category: FilterCategory;

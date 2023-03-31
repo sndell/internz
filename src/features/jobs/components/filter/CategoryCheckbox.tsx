@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoCheckmark } from "react-icons/io5";
 import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
-import { updateFilter } from "../finder/filterSlice";
+import { updateFilter } from "../../slices/filterSlice";
 
 interface FilterCheckboxProps {
   name: string;

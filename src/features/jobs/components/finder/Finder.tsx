@@ -4,7 +4,7 @@ import useToggle from "../../../../hooks/useToggle";
 import Filter from "../filter/Filter";
 import { AnimatePresence } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
-import { updateFilter } from "./filterSlice";
+import { updateFilter } from "../../slices/filterSlice";
 import { useEffect, useState } from "react";
 import { getFilters } from "../../api/getFilters";
 import { getJobs } from "../../api/getJobs";
