@@ -16,7 +16,7 @@ const User = () => {
         return <AuthModal initialMode="verify" toggleActive={toggleActive} />;
       else if (user.type === "company" && !user.company)
         return <AuthModal initialMode="company" toggleActive={toggleActive} />;
-      return <UserModal toggleActive={toggleActive} />;
+      return <UserModal toggleActive={toggleActive} userId={user.id} />;
     }
 
     return <AuthModal initialMode="register" toggleActive={toggleActive} />;

@@ -4,9 +4,10 @@ import { logout } from "../../api";
 
 type UserModalProps = {
   toggleActive: () => void;
+  userId: string;
 };
 
-const UserModal = ({ toggleActive }: UserModalProps) => {
+const UserModal = ({ toggleActive, userId }: UserModalProps) => {
   return (
     <>
       <div
@@ -17,8 +18,8 @@ const UserModal = ({ toggleActive }: UserModalProps) => {
           <button onClick={logout} className="cursor-pointer">
             Logout
           </button>
-          <Link to="/profile">View profile</Link>
-          <Link to="/profile/edit">Edit user</Link>
+          <Link to={`/profile/${userId}`}>View profile</Link>
+          <Link to='/profile/edit'>Edit user</Link>  
         </div>
       </div>
       {createPortal(

@@ -14,6 +14,13 @@ type CompanyFormTypes = {
   description: string;
 };
 
+type CompanyTypes = {
+  logo: string;
+  name: string;
+  url: string;
+  description: string;
+};
+
 type LoginFormTypes = {
   email: string;
   password: string;
@@ -69,4 +76,9 @@ type SecurityFormInputs = {
   current_password: string;
   password: string;
   password_confirm: string;
+};
+
+type Profile = {
+  user: UserType;
+  company: CompanyFormType;
 };
