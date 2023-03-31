@@ -7,15 +7,23 @@ const Profile = () => {
   const [user, setUser] = useState<Profile | null>(null);
 
   useEffect(() => {
+    console.log(user);
+  }, [user]);
+
+  useEffect(() => {
     const fetch = async () => {
       if (!userId) return;
-      const test = await getUserWithCompanyById(userId);
-      console.log(test);
+      const fetchedUser = await getUserWithCompanyById(userId);
+      setUser(fetchedUser);
     };
     fetch();
   }, [userId]);
 
-  return <div>Profile</div>;
+  return (
+    <div>
+      <div className="bg-primary p-3"></div>
+    </div>
+  );
 };
 
 export default Profile;
