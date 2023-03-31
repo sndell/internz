@@ -11,7 +11,7 @@ const Job = ({ job }: JobProps) => {
           className="h-12 w-12 shrink-0 rounded-xl"
         />
         <div className="grid-cols-[minmax(auto, max-content)] grid">
-          <div>{job.position}</div>
+          <div className="font-semibold">{job.position}</div>
           <div className="no-scrollbar flex items-center gap-2 overflow-x-scroll text-sm text-primary">
             {job.company.name}
             <span className="text-[10px]">&#9679;</span>
@@ -27,7 +27,7 @@ const Job = ({ job }: JobProps) => {
       <div className="flex flex-wrap gap-3">
         {job.tags.map((tag, index) => (
           <div
-            className="rounded-xl bg-secondary px-3 py-2 text-sm"
+            className="rounded-xl bg-secondary px-3 py-1.5 text-sm"
             key={index}
           >
             {tag}
