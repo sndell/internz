@@ -10,7 +10,6 @@ import Finder from "./features/jobs/components/finder/Finder";
 import Profile from "./features/user/components/profile/Profile";
 import Edit from "./features/user/components/edit/Edit";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
