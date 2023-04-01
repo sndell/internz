@@ -22,10 +22,6 @@ const User = () => {
     return <AuthModal initialMode="register" toggleActive={toggleActive} />;
   };
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   return (
     <div className="relative">
       <button

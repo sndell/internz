@@ -8,7 +8,7 @@ import { updateFilter } from "../../slices/filterSlice";
 import { useEffect, useState } from "react";
 import { getFilters } from "../../api/getFilters";
 import { getJobs } from "../../api/getJobs";
-import Job from "./Job";
+import Job from "../Job";
 import { getJobsWithFilters } from "../../api/getJobsWithFilters";
 
 const Finder = () => {
@@ -32,10 +32,6 @@ const Finder = () => {
     };
     fetch();
   }, []);
-
-  useEffect(() => {
-    console.log(jobs);
-  }, [jobs]);
 
   const search = async () => {
     console.log(activeFilters);

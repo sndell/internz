@@ -23,7 +23,7 @@ const Job = ({ job }: JobProps) => {
           </div>
         </div>
       </div>
-      <div className="line-clamp-3 text-sm">{job.description}</div>
+      <div className="text-sm line-clamp-3">{job.description}</div>
       <div className="flex flex-wrap gap-3">
         {job.tags.map((tag, index) => (
           <div
