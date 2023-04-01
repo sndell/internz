@@ -7,6 +7,9 @@ import { Provider } from "react-redux";
 import store from "./app/reduxStore";
 import New from "./features/jobs/components/New";
 import Finder from "./features/jobs/components/finder/Finder";
+import Profile from "./features/user/components/profile/Profile";
+import Edit from "./features/user/components/edit/Edit";
+
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: "/company/new",
         element: <New />,
+      },
+      {
+        path: "/profile/:userId",
+        element: <Profile />,
+      },
+      {
+        path: "/profile/edit",
+        element: <Edit />,
       },
     ],
   },

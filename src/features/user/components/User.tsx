@@ -16,7 +16,7 @@ const User = () => {
         return <AuthModal initialMode="verify" toggleActive={toggleActive} />;
       else if (user.type === "company" && !user.company)
         return <AuthModal initialMode="company" toggleActive={toggleActive} />;
-      return <UserModal toggleActive={toggleActive} />;
+      return <UserModal toggleActive={toggleActive} userId={user.id} />;
     }
 
     return <AuthModal initialMode="register" toggleActive={toggleActive} />;
@@ -40,7 +40,7 @@ const User = () => {
                 `https://ui-avatars.com/api/?name=${user.username}&background=random`
               }
               alt="Profile picture"
-              className="mr-2 h-full rounded-xl"
+              className="mr-2 h-full w-10 rounded-xl "
             />
             <div className="pr-3 max-sm:hidden">{user.username}</div>
           </>
