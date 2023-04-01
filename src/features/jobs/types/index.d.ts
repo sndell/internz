@@ -13,3 +13,22 @@ type Job = {
   company: CompanyFormTypes;
   user: UserType;
 } & NewFormTypes;
+
+type Filters = {
+  cities: string[];
+  tags: string[];
+};
+
+interface FilterSlice {
+  locations: string[];
+  tags: string[];
+  search: string;
+  start_date: string | null;
+  end_date: string | null;
+  start_date_order: FilterDateOrder;
+  end_date_order: FilterDateOrder;
+}
+
+type FilterDateOrder = "before" | "after" | "on";
+
+type FilterCategory = keyof FilterSlice;
