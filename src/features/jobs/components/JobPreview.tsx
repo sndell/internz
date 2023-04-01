@@ -2,7 +2,7 @@ interface JobProps {
   job: Job;
 }
 
-const Job = ({ job }: JobProps) => {
+const JobPreview = ({ job }: JobProps) => {
   return (
     <div className="flex flex-col gap-3 rounded-xl bg-white p-3">
       <div className="flex gap-3">
@@ -38,4 +38,4 @@ const Job = ({ job }: JobProps) => {
   );
 };
 
-export default Job;
+export default JobPreview;

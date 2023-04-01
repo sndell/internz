@@ -8,7 +8,7 @@ import { updateFilter } from "../../slices/filterSlice";
 import { useEffect, useState } from "react";
 import { getFilters } from "../../api/getFilters";
 import { getJobs } from "../../api/getJobs";
-import Job from "../Job";
+import JobPreview from "../JobPreview";
 import { getJobsWithFilters } from "../../api/getJobsWithFilters";
 
 const Finder = () => {
@@ -65,7 +65,7 @@ const Finder = () => {
         Search
       </button>
       <div className="flex flex-col gap-3">
-        {jobs && jobs.map((job, index) => <Job job={job} key={index} />)}
+        {jobs && jobs.map((job, index) => <JobPreview job={job} key={index} />)}
       </div>
     </div>
   );
