@@ -12,6 +12,7 @@ type NewFormTypes = {
 type Job = {
   company: CompanyFormTypes;
   user: UserType;
+  id: string;
 } & NewFormTypes;
 
 type Filters = {
@@ -32,3 +33,7 @@ interface FilterSlice {
 type FilterDateOrder = "before" | "after" | "on";
 
 type FilterCategory = keyof FilterSlice;
+
+interface JobSlice {
+  job: Job | null;
+}

@@ -10,7 +10,11 @@ export const getJobs = async (): Promise<Job[]> => {
     const querySnapshot = await getDocs(jobCollectionRef);
     const jobs: Job[] = [];
     querySnapshot.forEach((doc) => {
-      jobs.push(doc.data() as Job);
+      const jobData = doc.data() as Job;
+      jobs.push({
+        ...jobData,
+        id: doc.id,
+      });
     });
     return jobs;
   } catch (e) {
