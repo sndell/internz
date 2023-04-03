@@ -9,6 +9,12 @@ import New from "./features/jobs/components/New";
 import Finder from "./features/jobs/components/finder/Finder";
 import Profile from "./features/user/components/profile/Profile";
 import Edit from "./features/user/components/edit/Edit";
+import Job from "./features/jobs/components/Job";
+import {
+  AnimatePresence,
+  AnimateSharedLayout,
+  LayoutGroup,
+} from "framer-motion";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +24,12 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Finder />,
+        children: [
+          {
+            path: "/:jobId",
+            element: <Job />,
+          },
+        ],
       },
       {
         path: "/company/new",

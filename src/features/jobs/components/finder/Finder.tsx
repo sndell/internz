@@ -2,7 +2,11 @@ import { BsFilter, BsSearch } from "react-icons/bs";
 import { CgClose } from "react-icons/cg";
 import useToggle from "../../../../hooks/useToggle";
 import Filter from "../filter/Filter";
-import { AnimatePresence } from "framer-motion";
+import {
+  AnimatePresence,
+  AnimateSharedLayout,
+  LayoutGroup,
+} from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
 import { updateFilter } from "../../slices/filterSlice";
 import { useEffect, useState } from "react";
@@ -10,6 +14,7 @@ import { getFilters } from "../../api/getFilters";
 import { getJobs } from "../../api/getJobs";
 import JobPreview from "../JobPreview";
 import { getJobsWithFilters } from "../../api/getJobsWithFilters";
+import { Outlet } from "react-router-dom";
 
 const Finder = () => {
   const [active, toggleActive] = useToggle();
@@ -65,8 +70,14 @@ const Finder = () => {
         Search
       </button>
       <div className="flex flex-col gap-3">
-        {jobs && jobs.map((job, index) => <JobPreview job={job} key={index} />)}
+        {jobs &&
+          jobs.map((job, index) => (
+            <JobPreview job={job} key={`${job.id}-${index}`} />
+          ))}
       </div>
+      <AnimatePresence>
+        <Outlet />
+      </AnimatePresence>
     </div>
   );
 };

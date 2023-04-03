@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Define a type for the slice state
-
 const initialState: FilterSlice = {
   tags: [],
   search: "",

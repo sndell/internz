@@ -73,7 +73,11 @@ export const getJobsWithFilters = async (
 
     // Iterate through the fetched jobs and filter them
     querySnapshot.forEach((doc) => {
-      const job = doc.data() as Job;
+      const jobData = doc.data() as Job;
+      const job = {
+        ...jobData,
+        id: doc.id,
+      };
 
       // If the job matches all filters, add it to the jobs array
       if (matchesJobFilters(job, filters)) {
