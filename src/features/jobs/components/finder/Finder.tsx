@@ -52,7 +52,7 @@ const Finder = () => {
           placeholder="Search"
           onChange={handleSearch}
           type="text"
-          className="h-full flex-1 px-2 outline-none"
+          className="h-full w-full px-2 outline-none"
         />
         <button onClick={toggleActive}>
           {active ? (
