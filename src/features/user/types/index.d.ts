@@ -80,5 +80,5 @@ type SecurityFormInputs = {
 
 type Profile = {
   user: UserType;
-  company: CompanyFormTypes;
+  company: CompanyFormTypes | null;
 };

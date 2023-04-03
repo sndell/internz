@@ -1,5 +1,4 @@
 import { AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
 import { HiUserCircle } from "react-icons/hi2";
 import useToggle from "../../../hooks/useToggle";
 import useAuthState from "../hooks/useAuthState";

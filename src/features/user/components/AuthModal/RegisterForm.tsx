@@ -2,9 +2,8 @@ import ContinueWithGoogleButton from "./ContinueWithGoogleButton";
 import { useForm, SubmitHandler, FieldError } from "react-hook-form";
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { registerWithEmailAndPassword } from "../../api";
 import { motion } from "framer-motion";
-import TextInput from "../../../../components/elements/form/TextInput";
+import { registerWithEmailAndPassword } from "../../api/registerWithEmailAndPassword";
 
 type RegisterFormProps = {
   type: AccountType;

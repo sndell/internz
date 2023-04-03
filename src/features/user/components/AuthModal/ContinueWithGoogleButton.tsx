@@ -1,5 +1,6 @@
 import { FcGoogle } from "react-icons/fc";
-import { loginWithGoogle, registerWithGoogle } from "../../api";
+import { loginWithGoogle } from "../../api/";
+import { registerWithGoogle } from "../../api/";
 
 type Props = {
   type?: AccountType | null;

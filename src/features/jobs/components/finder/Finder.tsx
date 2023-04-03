@@ -39,7 +39,6 @@ const Finder = () => {
   }, []);
 
   const search = async () => {
-    console.log(activeFilters);
     const test = await getJobsWithFilters(activeFilters);
     setJobs(test);
   };

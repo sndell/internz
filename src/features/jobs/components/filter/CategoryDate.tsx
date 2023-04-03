@@ -13,8 +13,6 @@ const FilterDate = ({ category }: FilterDateProps) => {
       state.filter[`${category}_order` as FilterCategory] as FilterDateOrder
   );
 
-  console.log(category);
-
   return (
     <div className="flex justify-between">
       <input
