@@ -71,7 +71,7 @@ const Job = () => {
           </div>
           <div>
             <div className="text-sm font-semibold">Periods</div>
-            <div className="mt-2 flex flex-col gap-3 rounded-xl bg-primary">
+            <div className="mt-1 flex flex-col gap-3 rounded-xl bg-primary">
               <div className="flex items-center gap-3 text-sm max-xs:flex-col max-xs:items-start xs:items-center">
                 <div className="flex items-center gap-3 rounded-xl bg-secondary py-2 px-3">
                   <BsCalendarDateFill />
@@ -87,7 +87,7 @@ const Job = () => {
           </div>
           <div>
             <div className="text-sm font-semibold">Company</div>
-            <div className="mt-2 flex flex-col gap-3 rounded-xl bg-secondary p-3">
+            <div className="mt-1 flex flex-col gap-3 rounded-xl bg-secondary p-3">
               <div className="flex gap-3">
                 <img
                   src={job?.company.logo as string}
@@ -108,7 +108,7 @@ const Job = () => {
             <div className="text-sm font-semibold">Recruiter</div>
             <div
               onClick={handleNavigate}
-              className="mt-2 flex cursor-pointer flex-col gap-3 rounded-xl bg-secondary p-3"
+              className="mt-1 flex cursor-pointer flex-col gap-3 rounded-xl bg-secondary p-3"
             >
               <div className="flex gap-3">
                 <img
