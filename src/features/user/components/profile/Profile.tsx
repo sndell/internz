@@ -110,18 +110,18 @@ const Profile = () => {
           <div className="font-semibold text-primary">Company</div>
           <div className="flex items-center gap-3">
             <img
-              src={profileData.company.logo as string}
+              src={profileData.company?.logo as string}
               className="h-10 w-10"
             />
             <div>
-              <div className="text-primary">{profileData.company.name}</div>
+              <div className="text-primary">{profileData.company?.name}</div>
               <div className="text-sm text-primary">
-                {profileData.company.url}
+                {profileData.company?.url}
               </div>
             </div>
           </div>
           <div className="text-sm text-primary">
-            {profileData.company.description}
+            {profileData.company?.description}
           </div>
         </div>
       )}
