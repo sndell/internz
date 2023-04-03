@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../app/reduxHooks";
 import { getJobById } from "../api/getJobById";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 import { BsCalendarDateFill } from "react-icons/bs";
 
@@ -26,6 +26,10 @@ const Job = () => {
     navigate("/");
   };
 
+  const handleNavigate = () => {
+    navigate(`/profile/${job?.user.id}`);
+  };
+
   return (
     <div
       onMouseDown={handleClose}
@@ -36,7 +40,8 @@ const Job = () => {
         layoutId={job?.id}
         className="inset-0 m-3 flex max-h-screen flex-col overflow-y-auto rounded-xl bg-white p-3"
       >
-        <div className="flex items-center justify-end">
+        <div className="flex items-start justify-between">
+          Details
           <button onClick={handleClose} className="rounded-xl bg-secondary p-3">
             <IoClose />
           </button>
@@ -67,7 +72,7 @@ const Job = () => {
           <div>
             <div className="text-sm font-semibold">Periods</div>
             <div className="mt-2 flex flex-col gap-3 rounded-xl bg-primary">
-              <div className="flex items-center gap-3 text-sm">
+              <div className="flex items-center gap-3 text-sm max-xs:flex-col max-xs:items-start xs:items-center">
                 <div className="flex items-center gap-3 rounded-xl bg-secondary py-2 px-3">
                   <BsCalendarDateFill />
                   {job?.start_date.toString()}
@@ -95,6 +100,27 @@ const Job = () => {
           </div>
           <div className="text-smline-clamp-3 text-sm line-clamp-3">
             {job?.company.description}
+          </div>
+        </div>
+        <div
+          onClick={handleNavigate}
+          className="mt-3 flex cursor-pointer flex-col gap-3 rounded-xl bg-secondary p-3"
+        >
+          <div className="flex gap-3">
+            <img
+              src={job?.user.photo as string}
+              alt="company image"
+              className="h-12 w-12 rounded-xl"
+            />
+            <div className="flex flex-col">
+              <div className="font-semibold">{job?.user.username}</div>
+              <div className="text-sm font-medium">
+                {job?.user.phone || job?.user.email}
+              </div>
+            </div>
+          </div>
+          <div className="text-smline-clamp-3 text-sm line-clamp-3">
+            {job?.user.introduction}
           </div>
         </div>
       </motion.div>
