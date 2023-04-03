@@ -85,42 +85,48 @@ const Job = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="mt-3 flex flex-col gap-3 rounded-xl bg-secondary p-3">
-          <div className="flex gap-3">
-            <img
-              src={job?.company.logo as string}
-              alt="company image"
-              className="h-12 w-12 rounded-xl"
-            />
-            <div className="flex flex-col">
-              <div className="font-semibold">{job?.company.name}</div>
-              <div className="text-sm font-medium">{job?.company.url}</div>
-            </div>
-          </div>
-          <div className="text-smline-clamp-3 text-sm line-clamp-3">
-            {job?.company.description}
-          </div>
-        </div>
-        <div
-          onClick={handleNavigate}
-          className="mt-3 flex cursor-pointer flex-col gap-3 rounded-xl bg-secondary p-3"
-        >
-          <div className="flex gap-3">
-            <img
-              src={job?.user.photo as string}
-              alt="company image"
-              className="h-12 w-12 rounded-xl"
-            />
-            <div className="flex flex-col">
-              <div className="font-semibold">{job?.user.username}</div>
-              <div className="text-sm font-medium">
-                {job?.user.phone || job?.user.email}
+          <div>
+            <div className="text-sm font-semibold">Company</div>
+            <div className="mt-2 flex flex-col gap-3 rounded-xl bg-secondary p-3">
+              <div className="flex gap-3">
+                <img
+                  src={job?.company.logo as string}
+                  alt="company image"
+                  className="h-12 w-12 rounded-xl"
+                />
+                <div className="flex flex-col">
+                  <div className="font-semibold">{job?.company.name}</div>
+                  <div className="text-sm font-medium">{job?.company.url}</div>
+                </div>
+              </div>
+              <div className="text-smline-clamp-3 text-sm line-clamp-3">
+                {job?.company.description}
               </div>
             </div>
           </div>
-          <div className="text-smline-clamp-3 text-sm line-clamp-3">
-            {job?.user.introduction}
+          <div>
+            <div className="text-sm font-semibold">Recruiter</div>
+            <div
+              onClick={handleNavigate}
+              className="mt-2 flex cursor-pointer flex-col gap-3 rounded-xl bg-secondary p-3"
+            >
+              <div className="flex gap-3">
+                <img
+                  src={job?.user.photo as string}
+                  alt="company image"
+                  className="h-12 w-12 rounded-xl"
+                />
+                <div className="flex flex-col">
+                  <div className="font-semibold">{job?.user.username}</div>
+                  <div className="text-sm font-medium">
+                    {job?.user.phone || job?.user.email}
+                  </div>
+                </div>
+              </div>
+              <div className="text-smline-clamp-3 text-sm line-clamp-3">
+                {job?.user.introduction}
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
