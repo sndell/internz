@@ -110,24 +110,30 @@ const JobCard = () => {
     useEffect(() => handleFilterJobs(selectJobs), [selectFilter])
 
     return (
-        <div>
+        <main>
             {
 
                 /* Logo, Company name, Job name, Tags, Description */
                 selectFilteredJobs.map((card: CardType) => {
 
                     return (
-                        <div key={selectFilteredJobs.indexOf(card)} className='bg-white p-3 rounded-lg m-auto mb-[20px] drop-shadow-md'>
+                        <article key={selectFilteredJobs.indexOf(card)} className='bg-white p-3 rounded-lg m-auto mb-[20px] drop-shadow-md'>
                             <div className="card-header flex">
                                 <img className='card-logo w-10' src={card.user.photo} alt={card.company.name + " logo"} />
+                                <h2 className="ml-4">
                                 {card.company.name}
+
+                                </h2>
                             </div>
                             <div className="card-desc">
+                                <p className='m-2'>
+
                                 {card.description}
+                                </p>
                             </div>
-                            <div className="card-city">
+                            <p className="card-city m-2">
                                 Based in: {card.city}
-                            </div>
+                            </p>
                             <ul className="card-tags flex">
                                 {
                                     card.tags.map((tag) => {
@@ -140,13 +146,13 @@ const JobCard = () => {
                                     })
                                 }
                             </ul>
-                        </div>
+                        </article>
                     )
                 })
 
             }
 
-        </div>
+        </main>
     );
 };
 

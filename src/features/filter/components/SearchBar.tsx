@@ -47,8 +47,10 @@ const SearchBar = ({ toggleActive }: Props) => {
       <div className="flex justify-between">
         <div className="relative flex w-full">
           <BiSearch className="mr-4 text-2xl" />
+          <label className='hidden' htmlFor="search">Search for internships.</label>
           <input
             className='w-full'
+            id="search"
             type="search"
             placeholder="Search"
             ref={searchFieldRef}
@@ -70,9 +72,9 @@ const SearchBar = ({ toggleActive }: Props) => {
         </button>
       </div>
       <button
-        title='Search'
+        title='Search internships.'
         type="submit"
-        className="mt-4 h-9 w-[100%] rounded-xl bg-black text-white"
+        className="mt-4 h-9 w-[100%] rounded-xl bg-black text-white hover:opacity-70"
       >
         Search
       </button>

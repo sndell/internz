@@ -27,7 +27,7 @@ const User = () => {
   }, [user]);
 
   return (
-    <div className="relative">
+    <aside className="relative">
       <button
         onClick={toggleActive}
         className=" flex h-10 items-center rounded-xl max-sm:bg-white sm:bg-secondary"
@@ -47,12 +47,12 @@ const User = () => {
         ) : (
           <>
             <HiUserCircle className="mx-2 text-2xl" />
-            <div className="pr-3 max-sm:hidden">Login/Register</div>
+            <i className="pr-3 hover:opacity-80 max-sm:hidden">Login/Register</i>
           </>
         )}
       </button>
       <AnimatePresence>{active && getModal()}</AnimatePresence>
-    </div>
+    </aside>
   );
 };
 
