@@ -1,5 +1,4 @@
 # Internz
-https://internz.vercel.app/
 Internz is a dynamic online platform designed to connect students with valuable internship opportunities. By showcasing a wide range of internships posted by companies across various industries
 
 ## Running the React App
