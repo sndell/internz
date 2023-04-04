@@ -56,8 +56,10 @@ const Profile = () => {
       </div>
       <div className="flex flex-col gap-1 rounded-xl bg-primary p-3">
         <div className="font-semibold">About me</div>
-        <div className="text-sm text-primary">
-          {profileData?.user.introduction}
+        <div className="grid-cols-[minmax(auto, max-content)] grid">
+          <div className="overflow-hidden break-words text-sm text-primary">
+            {profileData?.user.introduction}
+          </div>
         </div>
       </div>
       {profileData?.user.type === "student" && (
@@ -120,8 +122,10 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="text-sm text-primary">
-            {profileData.company?.description}
+          <div className="grid-cols-[minmax(auto, max-content)] grid">
+            <div className="overflow-hidden break-words text-sm text-primary">
+              {profileData.company?.description}
+            </div>
           </div>
         </div>
       )}

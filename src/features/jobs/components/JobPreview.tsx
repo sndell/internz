@@ -45,7 +45,11 @@ const JobPreview = ({ job }: JobProps) => {
           </div>
         </div>
       </div>
-      <div className="text-sm line-clamp-3">{job.description}</div>
+      <div className="grid-cols-[minmax(auto, max-content)] grid">
+        <div className="break-words text-sm line-clamp-3">
+          {job.description}
+        </div>
+      </div>
       <div className="flex flex-wrap gap-3">
         {job.tags.map((tag, index) => (
           <div

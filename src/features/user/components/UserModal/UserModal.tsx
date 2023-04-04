@@ -14,12 +14,12 @@ const UserModal = ({ toggleActive, userId }: UserModalProps) => {
         onMouseDown={(e) => e.preventDefault()}
         className="absolute right-0 top-14 z-10 grid place-items-center rounded-2xl bg-white"
       >
-        <div className="flex flex-col items-start p-3">
+        <div className="flex flex-col items-start whitespace-nowrap p-3">
           <button onClick={logout} className="cursor-pointer">
             Logout
           </button>
           <Link to={`/profile/${userId}`}>View profile</Link>
-          <Link to='/profile/edit'>Edit user</Link>  
+          <Link to="/profile/edit">Edit user</Link>
         </div>
       </div>
       {createPortal(

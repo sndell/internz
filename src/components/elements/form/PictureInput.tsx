@@ -32,6 +32,7 @@ const PictureInput = <T extends FieldValues>({
           id={id}
           accept="image/*"
           {...register(id as Path<T>, { required })}
+          className="w-full"
         />
       </div>
     </div>

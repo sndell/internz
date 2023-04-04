@@ -38,7 +38,7 @@ const Job = () => {
       <motion.div
         onMouseDown={(e) => e.stopPropagation()}
         layoutId={job?.id}
-        className="inset-0 m-3 flex max-h-screen flex-col overflow-y-auto rounded-xl bg-white p-3"
+        className="inset-0 m-3 flex max-h-screen  flex-col overflow-y-auto rounded-xl bg-white p-3"
       >
         <div className="flex items-start justify-between">
           Details
@@ -67,7 +67,11 @@ const Job = () => {
           </div>
           <div>
             <div className="text-sm font-semibold">Description</div>
-            <div className="text-sm">{job?.description}</div>
+            <div className="grid-cols-[minmax(auto, max-content)] grid">
+              <div className="overflow-hidden break-words text-sm">
+                {job?.description}
+              </div>
+            </div>
           </div>
           <div>
             <div className="text-sm font-semibold">Periods</div>
@@ -99,8 +103,10 @@ const Job = () => {
                   <div className="text-sm font-medium">{job?.company.url}</div>
                 </div>
               </div>
-              <div className="text-smline-clamp-3 text-sm line-clamp-3">
-                {job?.company.description}
+              <div className="grid grid-cols-[minmax(auto,max-content)]">
+                <div className="break-words text-sm line-clamp-3">
+                  {job?.company.description}
+                </div>
               </div>
             </div>
           </div>
@@ -123,8 +129,10 @@ const Job = () => {
                   </div>
                 </div>
               </div>
-              <div className="text-smline-clamp-3 text-sm line-clamp-3">
-                {job?.user.introduction}
+              <div className="grid-cols-[minmax(auto, max-content)] grid">
+                <div className="text-smline-clamp-3 break-words text-sm line-clamp-3">
+                  {job?.user.introduction}
+                </div>
               </div>
             </div>
           </div>
